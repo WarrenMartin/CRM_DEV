@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workout Form</title>
+    <style>
+        /* Add your CSS styling here */
+    </style>
+</head>
+<body>
+    <h1>Workout Form</h1>
+    <form id="workoutForm">
+        <!-- Your workout form fields go here -->
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" required>
+
+        <label for="load">Load:</label>
+        <input type="text" id="load" name="load" required>
+
+        <label for="note">Note:</label>
+        <textarea id="note" name="note" required></textarea>
+
+        <label for="reps">Reps:</label>
+        <input type="number" id="reps" name="reps" required>
+
+        <button type="button" onclick="submitWorkout()">Submit Workout</button>
+    </form>
+
+    <script>
+        function submitWorkout() {
+            const title = document.getElementById('title').value;
+            const load = document.getElementById('load').value;
+            const note = document.getElementById('note').value;
+            const reps = document.getElementById('reps').value;
+
+            const workoutData = { title, load, note, reps };
+
+            // Convert the workout data to a CSV string
+            const csvData = `${title},${load},${note},${reps}\n`;
+
+            // Create a Blob from the CSV data
+            const blob = new Blob([csvData], { type: 'text/csv' });
+
+            // Create a link element to download the CSV file
+            const link = document.createElement('a');
+            link.href = window.URL.createObjectURL(blob);
+            link.download = 'workout_data.csv';
+
+            // Append the link to the document and trigger the click event
+            document.body.appendChild(link);
+            link.click();
+
+            // Remove the link from the document
+            document.body.removeChild(link);
+        }
+    </script>
+</body>
+</html>
