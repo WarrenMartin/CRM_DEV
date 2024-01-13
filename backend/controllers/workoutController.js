@@ -87,7 +87,7 @@ const updateWorkout = async (req, res) => {
   }
 
   const workout = await Workout.findOneAndUpdate({_id: id}, {
-    ...req.body
+    ...req.body // spread opr for GNCIC
   })
 
   if (!workout) {

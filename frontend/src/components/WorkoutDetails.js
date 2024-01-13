@@ -1,5 +1,8 @@
 import { useWorkoutsContext } from '../hooks/useWorkoutsContext'
 import { useAuthContext } from '../hooks/useAuthContext'
+import React, { useState } from 'react';
+import UpdateForm from './UpdateForm';
+
 
 
 // date fns
@@ -8,6 +11,7 @@ import formatDistanceToNow from 'date-fns/formatDistanceToNow'
 const WorkoutDetails = ({ workout }) => {
   const { dispatch } = useWorkoutsContext()
   const { user } = useAuthContext()
+  const [showUpdateModal, setShowUpdateModal] = useState(false);
 
   const handleClick = async () => {
     if (!user) {
@@ -29,26 +33,38 @@ const WorkoutDetails = ({ workout }) => {
 
   //function to update
 
-  const handleUpdate = async () => {
+  // const handleUpdate = async () => {
+  //   // make sure only auth users are allowed
+  //   if (!user) {
+  //     return;
+  //   }
+  
+  //   // open modal with the current data
+  //   const response = await fetch('/api/workouts/' + workout._id, {
+  //     method: 'PATCH', // or 'PATCH' depending on your API
+  //     headers: {
+  //       'Authorization': `Bearer ${user.token}`
+  //     }
+  //   });
+  
+  //   const json = await response.json();
+  
+  //   if (response.ok) {
+  //     dispatch({ type: 'UPDATE_WORKOUT', payload: json });
+  //   }
+  // };
+
+  //second try
+  const handleUpdate = () => {
     if (!user) {
       return;
     }
-  
-    const response = await fetch('/api/workouts/' + workout._id, {
-      method: 'PATCH', // or 'PATCH' depending on your API
-      headers: {
-        'Authorization': `Bearer ${user.token}`
-      }
-    });
-  
-    const json = await response.json();
-  
-    if (response.ok) {
-      dispatch({ type: 'UPDATE_WORKOUT', payload: json });
-    }
+    setShowUpdateModal(true);
   };
 
   return (
+
+    // YOU CAN DELETE THIS.
     // <div className="workout-details">
     //   <h4>{workout.title}</h4>
     //   <p><strong>Phn.: </strong>{workout.load}</p>
@@ -72,6 +88,10 @@ const WorkoutDetails = ({ workout }) => {
 
   <span className="material-symbols-outlined" onClick={handleClick}>delete</span>
   <span className="material-symbols-outlined" onClick={handleUpdate}>update</span>
+
+  {/* {showUpdateModal && <UpdateForm workout={UpdateForm} onClose={() => setShowUpdateModal(false)} />} */}
+  {showUpdateModal && <UpdateForm workout={workout} onClose={() => setShowUpdateModal(false)} />}
+
 
   
 
