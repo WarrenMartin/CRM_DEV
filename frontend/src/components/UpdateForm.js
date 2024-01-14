@@ -1,7 +1,6 @@
 
 
-// export default UpdateForm;
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useWorkoutsContext } from "../hooks/useWorkoutsContext";
 import { useAuthContext } from '../hooks/useAuthContext';
 
@@ -34,14 +33,13 @@ const UpdateForm = ({ workout }) => {
     }
 
     const updatedWorkout = {
-      id: workout.id,
       title,
       load,
       note,
       reps,
     };
 
-    const response = await fetch(`/api/workouts/${workout.id}`, {
+    const response = await fetch(`/api/workouts/${workout._id}`, {
       method: 'PATCH',
       body: JSON.stringify(updatedWorkout),
       headers: {
@@ -53,12 +51,8 @@ const UpdateForm = ({ workout }) => {
 
     if (!response.ok) {
       setError(json.error);
-      setEmptyFields(json.emptyFields);
+      setEmptyFields(json.emptyFields || []);
     } else {
-      setTitle(json.title);
-      setLoad(json.load);
-      setNote(json.note);
-      setReps(json.reps);
       setError(null);
       setEmptyFields([]);
       dispatch({ type: 'UPDATE_WORKOUT', payload: json });
@@ -67,14 +61,11 @@ const UpdateForm = ({ workout }) => {
 
   return (
     <form className="create" onSubmit={handleSubmit}>
-      <h3>Update Workout</h3>
-
       <label>Name:</label>
       <input
         type="text"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
-        className={emptyFields.includes('title') ? 'error' : ''}
       />
 
       <label>Phone Number:</label>
@@ -82,7 +73,6 @@ const UpdateForm = ({ workout }) => {
         type="number"
         value={load}
         onChange={(e) => setLoad(e.target.value)}
-        className={emptyFields.includes('load') ? 'error' : ''}
       />
 
       <label>Note:</label>
@@ -90,7 +80,6 @@ const UpdateForm = ({ workout }) => {
         type="text"
         value={note}
         onChange={(e) => setNote(e.target.value)}
-        className={emptyFields.includes('note') ? 'error' : ''}
       />
 
       <label>Email:</label>
@@ -98,10 +87,9 @@ const UpdateForm = ({ workout }) => {
         type="text"
         value={reps}
         onChange={(e) => setReps(e.target.value)}
-        className={emptyFields.includes('reps') ? 'error' : ''}
       />
 
-      <button>Update Member</button>
+      <button type="submit">Update Workout</button>
       {error && <div className="error">{error}</div>}
     </form>
   );

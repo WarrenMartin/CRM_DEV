@@ -15,13 +15,13 @@ const getWorkout = async (req, res) => {
   const { id } = req.params
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(404).json({error: 'No such workout'})
+    return res.status(404).json({error: 'No such single member'})
   }
 
   const workout = await Workout.findById(id)
 
   if (!workout) {
-    return res.status(404).json({error: 'No such workout'})
+    return res.status(404).json({error: 'No such single member'})
   }
   
   res.status(200).json(workout)
@@ -65,13 +65,13 @@ const deleteWorkout = async (req, res) => {
   const { id } = req.params
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(404).json({error: 'No such workout'})
+    return res.status(404).json({error: 'No such Member from del'})
   }
 
   const workout = await Workout.findOneAndDelete({_id: id})
 
   if (!workout) {
-    return res.status(400).json({error: 'No such workout'})
+    return res.status(400).json({error: 'No such Member from del'})
   }
 
   res.status(200).json(workout)
@@ -83,7 +83,7 @@ const updateWorkout = async (req, res) => {
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     // it will check for a workout
-    return res.status(404).json({error: 'No such workout'})
+    return res.status(404).json({error: 'No such Member from upd'})
   }
 
   const workout = await Workout.findOneAndUpdate({_id: id}, {
@@ -91,7 +91,7 @@ const updateWorkout = async (req, res) => {
   })
 
   if (!workout) {
-    return res.status(400).json({error: 'No such workout'})
+    return res.status(400).json({error: 'No such Member from upd'})
   }
 
   res.status(200).json(workout)
