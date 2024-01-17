@@ -10,6 +10,7 @@ const WorkoutForm = () => {
   const [load, setLoad] = useState('')
   const [note,setNote]=useState('')
   const [reps, setReps] = useState('')
+  // const [userid, setuserid] = useState('')
   const [error, setError] = useState(null)
   const [emptyFields, setEmptyFields] = useState([])
 
@@ -22,6 +23,7 @@ const WorkoutForm = () => {
     }
 
     const workout = {title, load,note, reps}
+    
 
     const response = await fetch('/api/workouts', {
       method: 'POST',

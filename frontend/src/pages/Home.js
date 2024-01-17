@@ -32,7 +32,9 @@ const Home = () => {
     <div className="home">
       <div className="workouts">
         {workouts && workouts.map((workout) => (
-          <WorkoutDetails key={workout._id} workout={workout} />
+          <WorkoutDetails key={workout._id} workout={workout} user_id={user._id} />
+
+          // <WorkoutDetails key={workout._id} workout={workout} />
           // <UpdateForm key={workout._id} workout={workout} />
 
         ))}

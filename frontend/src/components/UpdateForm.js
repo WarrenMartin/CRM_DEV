@@ -1,10 +1,8 @@
-
-
 import React, { useState, useEffect } from "react";
 import { useWorkoutsContext } from "../hooks/useWorkoutsContext";
 import { useAuthContext } from '../hooks/useAuthContext';
 
-const UpdateForm = ({ workout }) => {
+const UpdateForm = ({ workout, user_id: initialUserId }) => {
   const { dispatch } = useWorkoutsContext();
   const { user } = useAuthContext();
 
@@ -12,6 +10,7 @@ const UpdateForm = ({ workout }) => {
   const [load, setLoad] = useState(workout.load || '');
   const [note, setNote] = useState(workout.note || '');
   const [reps, setReps] = useState(workout.reps || '');
+  const [user_id, setUser_id] = useState(initialUserId || ''); // State for user_id
   const [error, setError] = useState(null);
   const [emptyFields, setEmptyFields] = useState([]);
 
@@ -21,8 +20,9 @@ const UpdateForm = ({ workout }) => {
       setLoad(workout.load || '');
       setNote(workout.note || '');
       setReps(workout.reps || '');
+      setUser_id(initialUserId || ''); // Set user_id state when workout or initialUserId changes
     }
-  }, [workout]);
+  }, [workout, initialUserId]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -37,7 +37,9 @@ const UpdateForm = ({ workout }) => {
       load,
       note,
       reps,
+      user_id,
     };
+    console.log(user_id)
 
     const response = await fetch(`/api/workouts/${workout._id}`, {
       method: 'PATCH',
@@ -80,6 +82,13 @@ const UpdateForm = ({ workout }) => {
         type="text"
         value={note}
         onChange={(e) => setNote(e.target.value)}
+      />
+      <label>Assign:</label>
+      <input
+        type="text"
+        value={user_id.value}
+        onChange={(e) => setUser_id(e.target.value)} 
+        
       />
 
       <label>Email:</label>

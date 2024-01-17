@@ -4,6 +4,7 @@ const mongoose = require('mongoose')
 // get all workouts
 const getWorkouts = async (req, res) => {
   const user_id = req.user._id
+  // console.log(user_id)
 
   const workouts = await Workout.find({user_id}).sort({createdAt: -1})
 
@@ -78,25 +79,56 @@ const deleteWorkout = async (req, res) => {
 }
 
 // update a workout
+// const updateWorkout = async (req, res) => {
+//   const user_id = req.user._id
+//   console.log(user_id)
+//   const { id } = req.params;
+
+
+//   if (!mongoose.Types.ObjectId.isValid(id)) {
+//     // it will check for a workout
+//     return res.status(404).json({error: 'No such Member from upd'})
+//   }
+
+//   const workout = await Workout.findOneAndUpdate({_id: id}, {
+//     ...req.body // spread opr for GNCIC
+//   },{new:true});; // { new: true } ensures that the updated workout is returned
+
+//   if (!workout) {
+//     return res.status(400).json({error: 'No such Member from upd'})
+//   }
+
+//   res.status(200).json(updateWorkout,user_id) // in the second argument i have passed it in the frotntend
+// }
+
+
+// module.exports = {
+//   getWorkouts,
+//   getWorkout,
+//   createWorkout,
+//   deleteWorkout,
+//   updateWorkout
+// }
+
+
 const updateWorkout = async (req, res) => {
-  const { id } = req.params
+  const user_id = req.user._id;
+  const { id } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
-    // it will check for a workout
-    return res.status(404).json({error: 'No such Member from upd'})
+    return res.status(404).json({ error: 'No such Member from upd' });
   }
 
-  const workout = await Workout.findOneAndUpdate({_id: id}, {
+  const workout = await Workout.findOneAndUpdate({ _id: id }, {
     ...req.body // spread opr for GNCIC
-  })
+  }, { new: true });
 
   if (!workout) {
-    return res.status(400).json({error: 'No such Member from upd'})
+    return res.status(400).json({ error: 'No such Member from upd' });
   }
 
-  res.status(200).json(workout)
-}
-
+  res.status(200).json({ workout, user_id });
+};
 
 module.exports = {
   getWorkouts,
@@ -104,4 +136,4 @@ module.exports = {
   createWorkout,
   deleteWorkout,
   updateWorkout
-}
+};

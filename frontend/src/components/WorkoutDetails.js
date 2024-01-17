@@ -8,7 +8,7 @@ import UpdateForm from './UpdateForm';
 // date fns
 import formatDistanceToNow from 'date-fns/formatDistanceToNow'
 
-const WorkoutDetails = ({ workout }) => {
+const WorkoutDetails = ({ workout, user_id  }) => {
   const { dispatch } = useWorkoutsContext()
   const { user } = useAuthContext()
   const [showUpdateModal, setShowUpdateModal] = useState(false);
@@ -58,8 +58,11 @@ const WorkoutDetails = ({ workout }) => {
   const handleUpdate = () => {
     if (!user) {
       return;
+      
     }
-    setShowUpdateModal(true);
+    // setShowUpdateModal(true);
+     // Toggle the state when update button is clicked
+     setShowUpdateModal((prevShowUpdateModal) => !prevShowUpdateModal);
   };
 
   return (
@@ -90,7 +93,7 @@ const WorkoutDetails = ({ workout }) => {
   <span className="material-symbols-outlined" onClick={handleUpdate}>update</span>
 
   {/* {showUpdateModal && <UpdateForm workout={UpdateForm} onClose={() => setShowUpdateModal(false)} />} */}
-  {showUpdateModal && <UpdateForm workout={workout} onClose={() => setShowUpdateModal(false)} />}
+  {showUpdateModal && <UpdateForm workout={workout} user_id={user_id}  onClose={() => setShowUpdateModal(false)} />}
 
 
   
