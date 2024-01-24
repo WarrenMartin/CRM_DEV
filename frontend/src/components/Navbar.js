@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { useLogout } from '../hooks/useLogout'
 import { useAuthContext } from '../hooks/useAuthContext'
 import { Button, ButtonGroup, Spacer } from '@chakra-ui/react'; // Import Spacer for better spacing
+import {propertyTable} from '../pages/Property'
 
 const Navbar = () => {
   const { logout } = useLogout()
@@ -28,6 +29,13 @@ const Navbar = () => {
               Tasks
             </Button>
           )}
+        {user && (
+            <Link to="/property"> {/* Use Link to navigate to the Property page */}
+              <Button colorScheme="teal" size="md" mr="2">
+                Property
+              </Button>
+            </Link>
+          )}
 
           {user && (
             <div>
@@ -53,3 +61,4 @@ const Navbar = () => {
 }
 
 export default Navbar
+

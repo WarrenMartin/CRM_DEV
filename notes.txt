@@ -2,3 +2,34 @@ the title field is for name
 the reps are for email
 the note is for notes
 the load is for number
+
+
+To send data from a form to your in-house CRM, you can create a new route in your Express application that listens for a POST request from the form.
+ Here's an example of how you can modify your existing code to handle a form submission:
+Import the necessary middleware for handling form data:
+javascript
+const express = require('express');
+const bodyParser = require('body-parser');
+
+Add the body-parser middleware to your Express application:
+javascript
+const app = express();
+app.use(bodyParser.urlencoded({ extended: false }));
+
+Create a new route for handling form submissions:
+javascript
+app.post('/submit-form', (req, res) => {
+  // Process the form data here
+  // ...
+
+  // Redirect the user to a success page or display a success message
+  res.redirect('/success');
+});
+
+In your form, set the action attribute to the new route you created:
+html
+<form action="/submit-form" method="POST">
+  <!-- Your form fields -->
+</form>
+
+Now, when the form is submitted, the data will be sent to your in-house CRM through the /submit-form route. You can process the form data in the route handler and then redirect the user to a success page or display a success message.

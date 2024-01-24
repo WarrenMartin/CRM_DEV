@@ -7,8 +7,12 @@ const {
   updateWorkout
 } = require('../controllers/workoutController')
 const requireAuth = require('../middleware/requireAuth')
+const bodyParser = require('body-parser');
 
 const router = express.Router()
+
+
+
 
 // require auth for all workout routes
 router.use(requireAuth)
