@@ -26,8 +26,7 @@ import {
   IconButton,
   Icon,
 } from '@chakra-ui/react';
-import { FiMoreVertical } from 'react-icons/fi'; // You may need to install this icon package
-
+import { FiMoreVertical } from 'react-icons/fi';
 const PropertyTable = () => {
   const [isDrawerOpen, setDrawerOpen] = useState(false);
   const [selectedProperty, setSelectedProperty] = useState(null);
@@ -35,21 +34,37 @@ const PropertyTable = () => {
   const data = [
     {
       id: 1,
-      propertyType: 'Thiel, Waelchi and Mayer',
-      listingPrice: 'Zloty',
-      squareFootage: 2500,
-      yearBuilt: 1919,
+      propertyType: 'Aura, White Sand Residency, Guhaghar',
+      builderName: 'White Sand Residency',
+      area: 690,
+      possessionDate: 'N/A',
+      configuration: 'NA BHK',
+      bathrooms: 0,
       bedrooms: 0,
-      bathrooms: 9,
+      priceRange: '16-25 Lakhs', // Dummy price range
     },
     {
       id: 2,
-      propertyType: "O'Keefe, Bailey and Shanahan",
-      listingPrice: 'Rial',
-      squareFootage: 6547,
-      yearBuilt: 1925,
-      bedrooms: 5,
+      propertyType: "Runwal Gardens, Dombivli East",
+      builderName: 'RUNWAL PROPERTY',
+      area: 352.7,
+      possessionDate: 'Dec-2024',
+      configuration: '1,2,3 BHK',
+      bathrooms: 1,
+      bedrooms: 1,
+      priceRange: '36.62 Lakhs', // Dummy price range
+    },
+    {
+      id: 3,
+      propertyType: "Courtyard Pokharan Road 2, Narang Realty, Thane",
+      builderName: 'Rial',
+      area: 518.93,
+      possessionDate: 'Nov 2024',
+      configuration: '2 BHK',
       bathrooms: 3,
+      bedrooms: 5,
+      priceRange: '1.2-4.18 CR', // Dummy price range
+      link:""
     },
     // Add more data as needed
   ];
@@ -67,7 +82,7 @@ const PropertyTable = () => {
 
   return (
     <Container maxW="100vw" mt="4">
-      <Table variant="striped" colorScheme="teal" size="lg">
+       <Table variant="striped" colorScheme="teal" size="lg">
         <Thead>
           <Tr bg="black" color="white">
             <Th minW="150px">Property Name</Th>
@@ -75,6 +90,10 @@ const PropertyTable = () => {
             <Th minW="150px">Area</Th>
             <Th minW="150px">Possession Date</Th>
             <Th minW="150px">Configuration</Th>
+            <Th minW="150px">Bathrooms</Th> {/* New column for Bathrooms */}
+            <Th minW="150px">Bedrooms</Th> {/* New column for Bedrooms */}
+            <Th minW="150px">Price Range</Th> {/* New column for Price Range */}
+            <Th minW="150px">Link</Th> {/* New column for Link */}
             <Th>Action</Th>
           </Tr>
         </Thead>
@@ -82,10 +101,18 @@ const PropertyTable = () => {
           {data.map((property, index) => (
             <Tr key={property.id} bg={index % 2 === 0 ? 'white' : 'gainsboro'} h="50px">
               <Td>{property.propertyType}</Td>
-              <Td>{property.listingPrice}</Td>
-              <Td>{property.squareFootage}</Td>
-              <Td>{property.yearBuilt}</Td>
-              <Td>{property.bedrooms}</Td>
+              <Td>{property.builderName}</Td>
+              <Td>{property.area}</Td>
+              <Td>{property.possessionDate}</Td>
+              <Td>{property.configuration}</Td>
+              <Td>{property.bathrooms}</Td> {/* Render Bathrooms */}
+              <Td>{property.bedrooms}</Td> {/* Render Bedrooms */}
+              <Td>{property.priceRange}</Td> {/* Render Price Range */}
+              <Td>
+                <a href={property.link} target="_blank" rel="noopener noreferrer">
+                  {property.link}
+                </a>
+              </Td> {/* Render Link */}
               <Td>
                 <Menu>
                   <MenuButton
@@ -105,13 +132,16 @@ const PropertyTable = () => {
         </Tbody>
       </Table>
 
+      {/* ... (remaining code remains unchanged) */}
+
+
+      
       <Drawer placement="right" onClose={closeDrawer} isOpen={isDrawerOpen} size="md">
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
           <DrawerHeader borderBottomWidth="1px">Edit Property</DrawerHeader>
           <DrawerBody>
-            {/* Your form content goes here */}
             <VStack spacing="4">
               <FormControl>
                 <FormLabel>Property Type</FormLabel>
@@ -133,6 +163,7 @@ const PropertyTable = () => {
           </DrawerFooter>
         </DrawerContent>
       </Drawer>
+    
     </Container>
   );
 };

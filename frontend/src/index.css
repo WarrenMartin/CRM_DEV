@@ -122,6 +122,30 @@ nav button {
 
 
 
+
+/* to make login page look good ctgpt */
+
+
+
+.right-section {
+  flex: 1;
+  padding: 20px;
+  background-color: #ffffff; /* Adjust the background color as needed */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.right-side-image {
+  max-width: 100%; /* Adjust the maximum width of the image */
+  max-height: 100%; /* Adjust the maximum height of the image */
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+
 /* auth forms */
 form.signup, form.login {
   max-width: 400px;
