@@ -12,6 +12,9 @@ const bodyParser = require('body-parser');
 const router = express.Router()
 
 
+// POST a new workout
+router.post('/', bodyParser.json(), createWorkout);
+
 
 
 // require auth for all workout routes
@@ -24,7 +27,7 @@ router.get('/', getWorkouts)
 router.get('/:id', getWorkout)
 
 // POST a new workout
-router.post('/', createWorkout)
+// router.post('/', createWorkout)
 
 // DELETE a workout
 router.delete('/:id', deleteWorkout)

@@ -1,5 +1,9 @@
 const Workout = require('../models/workoutModel')
 const mongoose = require('mongoose')
+const Lead = require('../models/LeadModel') 
+const path = require('path');
+
+
 
 // get all workouts
 const getWorkouts = async (req, res) => {
@@ -30,36 +34,56 @@ const getWorkout = async (req, res) => {
 
 
 // create new workout
+// const createWorkout = async (req, res) => {
+//   const {title, load, note,reps} = req.body
+
+//   let emptyFields = []
+
+//   if(!title) {
+//     emptyFields.push('title')
+//   }
+//   if(!load) {
+//     emptyFields.push('load')
+//   }
+//   if(!note) {
+//     emptyFields.push('note')
+//   }
+//   if(!reps) {
+//     emptyFields.push('reps')
+//   }
+//   if(emptyFields.length > 0) {
+//     return res.status(400).json({ error: 'Please fill in all the fields', emptyFields })
+//   }
+
+//   // add doc to db
+//   try {
+//     const user_id = req.user._id
+//     const workout = await Workout.create({title, load,note, reps, user_id})
+//     res.status(200).json(workout)
+//   } catch (error) {
+//     res.status(400).json({error: error.message})
+//   }
+// }
+
+
+
 const createWorkout = async (req, res) => {
-  const {title, load, note,reps} = req.body
+  const { title, reps, note, load } = req.body;
+  const user_id = "659b7d3bfc9fd6488bd6814e";
 
-  let emptyFields = []
+  console.log('name:', title, 'email:', reps, 'phone:', note, load);
 
-  if(!title) {
-    emptyFields.push('title')
-  }
-  if(!load) {
-    emptyFields.push('load')
-  }
-  if(!note) {
-    emptyFields.push('note')
-  }
-  if(!reps) {
-    emptyFields.push('reps')
-  }
-  if(emptyFields.length > 0) {
-    return res.status(400).json({ error: 'Please fill in all the fields', emptyFields })
-  }
-
-  // add doc to db
   try {
-    const user_id = req.user._id
-    const workout = await Workout.create({title, load,note, reps, user_id})
-    res.status(200).json(workout)
+      const newLead = new Lead({ title, reps, note, load, user_id });
+      await newLead.save();
+      console.log('Lead saved to the database:', newLead);
+      res.send(`Form submitted successfully!<br>Name: ${title}<br>Email: ${reps}<br>Phone: ${note}<br>Load${load}`);
+      return newLead;
   } catch (error) {
-    res.status(400).json({error: error.message})
+      console.error('Error saving lead to the database:', error);
+      throw error;
   }
-}
+};
 
 // delete a workout
 const deleteWorkout = async (req, res) => {
