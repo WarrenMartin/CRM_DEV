@@ -18,7 +18,6 @@ const saveLead = async (req, res) => {
   try {
       const newLead = new Lead({ title, reps, note, load, user_id });
       await newLead.save();
-      return
       console.log('Lead saved to the database:', newLead);
       res.send(`Form submitted successfully`);
       return newLead;
