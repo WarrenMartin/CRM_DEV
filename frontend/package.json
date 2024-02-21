@@ -1,5 +1,6 @@
+
 {
-  "proxy": "http://localhost:4000",
+  "proxy": "https://mern-crm-app-9gut.onrender.com",
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
