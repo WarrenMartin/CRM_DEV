@@ -21,6 +21,8 @@ const saveLead = async (req, res) => {
   
       console.log('Lead saved to the database:', newLead);
       // res.send(`Form submitted successfully`);
+      res.status(200).json({ success: true, message: 'Form submitted successfully' });
+
       return newLead;
   } catch (error) {
       console.error('Error saving lead to the database:', error);
