@@ -90,8 +90,13 @@ const WorkoutDetails = ({ workout, user_id  }) => {
   <p><strong>updatedAt: </strong>{formatDistanceToNow(new Date(workout.updatedAt), { addSuffix: true })}</p>
 
   <span className="material-symbols-outlined" onClick={handleClick}>delete</span>
-  <span className="material-symbols-outlined" onClick={handleUpdate}>update</span>
-
+  <span
+  className="material-symbols-outlined"
+  onClick={handleUpdate}
+  style={{ marginRight: '40px' }}
+>
+  update
+</span>
   {/* {showUpdateModal && <UpdateForm workout={UpdateForm} onClose={() => setShowUpdateModal(false)} />} */}
   {showUpdateModal && <UpdateForm workout={workout} user_id={user_id}  onClose={() => setShowUpdateModal(false)} />}
 

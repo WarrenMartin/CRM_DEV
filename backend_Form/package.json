@@ -14,7 +14,10 @@
     "body-parser": "^1.20.2",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
+    "mailgun-js": "^0.22.0",
     "mongoose": "^8.1.0",
-    "nodemon": "^3.0.3"
+    "nodemailer": "^6.9.12",
+    "nodemon": "^3.0.3",
+    "sib-api-v3-sdk": "^8.5.0"
   }
 }
